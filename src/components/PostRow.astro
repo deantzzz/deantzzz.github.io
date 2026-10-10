@@ -1,0 +1,17 @@
+---
+import Arrow from './Arrow.astro';
+import { formatDate, postUrl, tagUrl, type Post } from '../lib/posts';
+interface Props { post: Post; heading?: 'h2' | 'h3' }
+const { post, heading: Heading = 'h3' } = Astro.props;
+---
+<article class="post-row">
+  <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>
+  <div class="post-summary">
+    <Heading><a class="post-title" href={postUrl(post)}>{post.data.title}</a></Heading>
+    <p>{post.data.description}</p>
+  </div>
+  <div class="post-meta">
+    {post.data.tags[0] && <a class="tag" href={tagUrl(post.data.tags[0])}>{post.data.tags[0]}</a>}
+    <a class="post-arrow" href={postUrl(post)} aria-label={`阅读：${post.data.title}`}><Arrow /></a>
+  </div>
+</article>

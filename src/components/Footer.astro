@@ -1,0 +1,8 @@
+---
+import { SITE } from '../config';
+const year = new Intl.DateTimeFormat('en', { year: 'numeric', timeZone: 'Asia/Shanghai' }).format(new Date());
+---
+<footer class="site-footer content">
+  <span>© {year} {SITE.name}</span>
+  <nav aria-label="页脚导航"><a href={SITE.github}>GitHub</a><a href="/rss.xml">RSS</a></nav>
+</footer>

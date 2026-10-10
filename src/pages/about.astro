@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+import { SITE } from '../config';
+---
+<Base title="关于" description="关于 deantzzz，以及这个记录技术、思考与日常的博客。">
+  <div class="page prose-wrap">
+    <header class="page-heading"><h1>关于</h1><p>你好，我是 {SITE.name}。</p></header>
+    <div class="prose">
+      <p>这是我的个人博客，用来记录技术、思考与日常。</p>
+      <p>有些文章会是完整的总结，有些会是还在生长的想法。把它们留在这里，方便以后回看，也分享给恰好路过的人。</p>
+      <p>不必每次都有完整的答案。写下来，就是一个开始。</p>
+      <p>欢迎来这里坐坐。</p>
+    </div>
+    <a class="text-link about-link" href={SITE.github}>在 GitHub 找到我 <Arrow /></a>
+  </div>
+</Base>
