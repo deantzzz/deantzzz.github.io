@@ -7,15 +7,15 @@ const links = [
   { href: '/about/', text: '关于', active: path.startsWith('/about/') },
 ];
 ---
-<header class="site-header wide">
+<header class="site-header">
   <div class="header-inner content">
-    <a class="wordmark" href="/" aria-label={`${SITE.name} 首页`}>{SITE.name}</a>
+    <a class="wordmark" href="/" aria-label={`${SITE.name} 首页`}><span aria-hidden="true">/</span> {SITE.name}</a>
     <nav aria-label="主导航">
       {links.map((link) => <a class:list={['nav-link', { active: link.active }]} href={link.href} aria-current={link.active ? 'page' : undefined}>{link.text}</a>)}
-      <button class="theme-toggle" type="button" aria-label="切换到深色主题" title="切换主题" aria-pressed="false">
-        <svg class="moon-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.9 13.2A9 9 0 0 1 10.8 3.1a9 9 0 1 0 10.1 10.1Z" /></svg>
-        <svg class="sun-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
-      </button>
     </nav>
+    <button class="search-toggle" type="button" aria-label="搜索文章" aria-haspopup="dialog" aria-controls="search-dialog" title="搜索文章（⌘ / Ctrl K）">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="7.5" /><path d="m16 16 5 5" /></svg>
+      <kbd aria-hidden="true">⌘ K</kbd>
+    </button>
   </div>
 </header>

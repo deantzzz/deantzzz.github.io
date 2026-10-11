@@ -1,8 +1,10 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Search from '../components/Search.astro';
+import { getImage } from 'astro:assets';
 import { SITE } from '../config';
-import mountains from '../assets/mountains.png';
+import deepSpace from '../assets/deep-space.png';
 import '../styles/global.css';
 
 interface Props {
@@ -16,17 +18,18 @@ interface Props {
 const { title, description = SITE.description, type = 'website', publishedAt, updatedAt, noindex = false } = Astro.props;
 const pageTitle = title ? `${title} · ${SITE.name}` : SITE.name;
 const canonical = new URL(Astro.url.pathname, SITE.url);
-const cover = new URL(mountains.src, SITE.url);
+const coverImage = await getImage({ src: deepSpace, width: 1200, format: 'jpg' });
+const cover = new URL(coverImage.src, SITE.url);
 ---
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="dark" data-palette="aurora" data-motion="running">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <meta name="author" content={SITE.name} />
-    <meta name="color-scheme" content="light dark" />
+    <meta name="color-scheme" content="dark" />
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -38,38 +41,33 @@ const cover = new URL(mountains.src, SITE.url);
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:locale" content="zh_CN" />
     <meta property="og:image" content={cover} />
-    <meta property="og:image:alt" content="薄雾与层叠的山峦" />
+    <meta property="og:image:alt" content="星光之下的未来光场" />
     <meta name="twitter:card" content="summary_large_image" />
     {publishedAt && <meta property="article:published_time" content={publishedAt.toISOString()} />}
     {updatedAt && <meta property="article:modified_time" content={updatedAt.toISOString()} />}
     <script is:inline>
       (() => {
-        let saved;
-        try { saved = localStorage.getItem('blog-theme'); } catch {}
-        const dark = saved === 'dark' || (saved !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        const root = document.documentElement;
+        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let palette = 'aurora', paused = false;
+        try {
+          palette = localStorage.getItem('blog-palette') === 'ember' ? 'ember' : 'aurora';
+          paused = localStorage.getItem('blog-motion') === 'paused';
+        } catch {}
+        root.dataset.palette = palette;
+        root.dataset.motion = reduced || paused ? 'paused' : 'running';
       })();
     </script>
   </head>
   <body>
     <a class="skip-link" href="#main">跳到正文</a>
+    <div class="reading-progress" aria-hidden="true"></div>
     <Header />
     <main id="main" tabindex="-1"><slot /></main>
     <Footer />
+    <Search />
     <script>
-      const button = document.querySelector<HTMLButtonElement>('.theme-toggle');
-      function updateButton() {
-        const dark = document.documentElement.dataset.theme === 'dark';
-        button?.setAttribute('aria-pressed', String(dark));
-        button?.setAttribute('aria-label', dark ? '切换到浅色主题' : '切换到深色主题');
-      }
-      button?.addEventListener('click', () => {
-        const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-        document.documentElement.dataset.theme = theme;
-        try { localStorage.setItem('blog-theme', theme); } catch {}
-        updateButton();
-      });
-      updateButton();
+      import '../scripts/experience';
     </script>
   </body>
 </html>

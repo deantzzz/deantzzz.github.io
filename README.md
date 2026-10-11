@@ -1,8 +1,18 @@
 # deantzzz 的博客
 
-中文个人博客，使用 Astro、Markdown 与 GitHub Pages。首页、文章、标签、归档、关于、RSS 和明暗主题已经配置好。
+未来极客风中文个人博客，使用 Astro、Markdown 与 GitHub Pages。深空背景、悬浮轨道核心与青紫光场组成首页；文章、标签、归档、关于和 RSS 均支持静态发布。
 
 网站地址：https://deantzzz.github.io/
+
+## 光场与交互
+
+- 移动指针：粒子连线、追光和轨道视差。
+- 点击轨道核心或聚焦后按回车：释放光波。
+- **极光 / 余烬**：切换青紫或琥珀光场，配色保留到下次访问。
+- **暂停动效 / 继续动效**：控制持续动画；自动遵循系统的减少动态效果设置。
+- 右上角搜索，或 **⌘ K / Ctrl K**：按标题、摘要、标签搜索真实文章；回车打开，Esc 返回。
+
+手机端使用独立的纵向构图与较少粒子。光场离开视口或标签页隐藏时停止绘制，图片通过 Astro 生成适配尺寸的 WebP。文章正文保持独立的阅读宽度。
 
 ## 本地预览
 
@@ -58,7 +68,8 @@ draft: false
 - 关于页：`src/pages/about.astro`
 - 配色、字体与间距：`src/styles/global.css`
 - 博客 URL：`astro.config.mjs` 与 `src/config.ts`
-- 山景图片：`src/assets/mountains.png`（由 OpenAI Image Gen 为本博客生成）
+- 交互逻辑：`src/scripts/experience.ts`
+- 轨道与背景：`src/assets/orbital-core.png`、`src/assets/deep-space.png`（由 OpenAI Image Gen 根据本博客概念图分别生成，界面文字和控件由代码实现）
 
 ## GitHub Pages
 
