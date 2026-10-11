@@ -2,7 +2,7 @@ name: Check and build blog
 
 on:
   push:
-    branches: [main, codex/bootstrap-blog]
+    branches: [codex/bootstrap-blog]
   pull_request:
     branches: [main]
   workflow_dispatch:

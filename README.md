@@ -1,8 +1,8 @@
 # deantzzz 的博客
 
-未来极客风中文个人博客，使用 Astro、Markdown 与 ChatGPT Sites。GitHub 源码仓库保持私有，网站公开阅读。深空背景、悬浮轨道核心与青紫光场组成首页；文章、标签、归档、关于和 RSS 均支持静态发布。
+未来极客风中文个人博客，使用 Astro、Markdown 与 GitHub Pages。源码仓库和网站均公开。深空背景、悬浮轨道核心与青紫光场组成首页；文章、标签、归档、关于和 RSS 均支持静态发布。
 
-网站地址：https://deantzzz.lovelysage6.chatgpt.site/
+网站地址：https://deantzzz.github.io/
 
 ## 光场与交互
 
@@ -54,13 +54,14 @@ draft: false
 ```
 
 - `draft: true` 的文章不会出现在生产构建、RSS、标签页或站点地图中。
+- 仓库为 Public，提交到仓库的草稿也可以被他人阅读；尚未准备公开的草稿请留在本地。
 - 日期晚于构建时刻的文章不会发布；到时间后需要再次触发构建。
 - 文件名是文章地址的一部分，建议发布后保持不变。
 - 本地图片放在文章旁边，用相对路径引用；构建时会自动处理。
 
-完成后，把改动提交到 `main`，GitHub Actions 会自动检查和构建。网站部署由本聊天中的 Sites 工具执行；GitHub 提交目前不会直接更新网站。
+完成后，把改动提交到 `main`，GitHub Actions 会自动检查、构建并发布到 GitHub Pages。
 
-也可以直接在 GitHub 网页的 `src/content/posts/` 目录选择 Add file → Create new file，新建 `.md` 文件并提交到 `main`。随后在本聊天说“发布博客最新文章”，即可同步源码、构建并发布。不需要每次在本地运行开发环境。
+也可以直接在 GitHub 网页的 `src/content/posts/` 目录选择 Add file → Create new file，新建 `.md` 文件并提交到 `main`。网站会自动更新，不需要在本地运行开发环境或在聊天中单独请求发布。
 
 ## 调整博客
 
@@ -73,12 +74,12 @@ draft: false
 
 ## 托管与后续发布
 
-公开网站由 ChatGPT Sites 托管，使用当前账号已有的 Sites 公测额度。GitHub Pages 因当前套餐不支持私有仓库而未启用。没有将 GitHub 源码仓库公开，也不需要升级 GitHub Pro。
+网站由 GitHub Pages 免费托管，仓库 `deantzzz/deantzzz.github.io` 为 Public。Settings → Pages 的 Source 使用 **GitHub Actions**。
 
-工作流在 `.github/workflows/check.yml`，权限限于读取源码，执行 `npm ci`、`npm run check` 与 `npm run build`。`package-lock.json` 固定构建依赖。
+工作流在 `.github/workflows/deploy.yml`，使用 Astro 官方 action 自动安装依赖、检查、构建并上传生产文件，再通过 GitHub 的部署 action 发布网站。不需要添加个人访问令牌。`package-lock.json` 固定构建依赖。
 
-Sites 使用独立的托管源码副本；源文件和 Markdown 不作为静态网站文件公开。发布时只上传生产构建目录，网站不会包含草稿、环境变量或 Git 元数据。
+拉取请求和开发分支使用 `.github/workflows/check.yml` 检查和构建。只有提交到 `main` 或手动运行部署工作流会更新网站。
 
-Sites 的托管身份与部署配置保存在 `.openai/hosting.json`。后续更新必须复用其中的 `project_id`，获取新的短期源码凭据并通过 Sites 工具发布；不要重建站点或保存凭据到 Git。
+在仓库的 Actions 页面可以查看发布进度。构建或检查失败时不会发布该次修改；修复后再次提交即可。
 
-官方参考：[ChatGPT Sites 使用说明](https://help.openai.com/en/articles/20001339-creating-and-using-chatgpt-sites)、[Astro 的静态构建](https://docs.astro.build/en/guides/deploy/)。
+官方参考：[Astro 的 GitHub Pages 部署指南](https://docs.astro.build/en/guides/deploy/github/)、[GitHub Pages 创建站点指南](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site)。
