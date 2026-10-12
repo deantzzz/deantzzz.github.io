@@ -1,18 +1,16 @@
 # deantzzz 的博客
 
-未来极客风中文个人博客，使用 Astro、Markdown 与 GitHub Pages。源码仓库和网站均公开。深空背景、悬浮轨道核心与青紫光场组成首页；文章、标签、归档、关于和 RSS 均支持静态发布。
+中文个人博客，使用 Astro、Markdown 与 GitHub Pages。源码仓库和网站均公开。深色编辑风格、中文衬线标题和冷光金属摄影构成首页，文章使用独立的阅读宽度；文章、标签、归档、关于和 RSS 均支持静态发布。
 
 网站地址：https://deantzzz.github.io/
 
-## 光场与交互
+## 阅读与导航
 
-- 移动指针：粒子连线、追光和轨道视差。
-- 点击轨道核心或聚焦后按回车：释放光波。
-- **极光 / 余烬**：切换青紫或琥珀光场，配色保留到下次访问。
-- **暂停动效 / 继续动效**：控制持续动画；自动遵循系统的减少动态效果设置。
+- 首页直接展示真实文章；归档按年份整理，标签可查看同一主题。
+- 文章页的细进度线随阅读滚动更新。
 - 右上角搜索，或 **⌘ K / Ctrl K**：按标题、摘要、标签搜索真实文章；回车打开，Esc 返回。
 
-手机端使用独立的纵向构图与较少粒子。光场离开视口或标签页隐藏时停止绘制，图片通过 Astro 生成适配尺寸的 WebP。文章正文保持独立的阅读宽度。
+手机端使用纵向排版。界面仅包含短暂入场、链接反馈与搜索弹窗过渡，自动遵循系统的减少动态效果设置。图片通过 Astro 生成适配尺寸的 WebP。首页中文衬线字体在站点内托管，其他字符使用系统衬线字体回退；无需连接外部字体服务。字体遵循 [Noto Serif SC 的 SIL Open Font License](https://github.com/google/fonts/blob/main/ofl/notoserifsc/OFL.txt)，许可随字体保存在 `public/fonts/OFL.txt`。
 
 ## 本地预览
 
@@ -70,7 +68,7 @@ draft: false
 - 配色、字体与间距：`src/styles/global.css`
 - 博客 URL：`astro.config.mjs`、`src/config.ts` 与 `public/robots.txt`
 - 交互逻辑：`src/scripts/experience.ts`
-- 轨道与背景：`src/assets/orbital-core.png`、`src/assets/deep-space.png`（由 OpenAI Image Gen 根据本博客概念图分别生成，界面文字和控件由代码实现）
+- 首页摄影：`src/assets/folded-titanium.png`（通过内置 OpenAI Image Gen 按设计稿单独生成，文字和导航由代码实现）
 
 ## 托管与后续发布
 

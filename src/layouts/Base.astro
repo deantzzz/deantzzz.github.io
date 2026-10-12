@@ -4,7 +4,7 @@ import Footer from '../components/Footer.astro';
 import Search from '../components/Search.astro';
 import { getImage } from 'astro:assets';
 import { SITE } from '../config';
-import deepSpace from '../assets/deep-space.png';
+import foldedTitanium from '../assets/folded-titanium.png';
 import '../styles/global.css';
 
 interface Props {
@@ -18,11 +18,11 @@ interface Props {
 const { title, description = SITE.description, type = 'website', publishedAt, updatedAt, noindex = false } = Astro.props;
 const pageTitle = title ? `${title} · ${SITE.name}` : SITE.name;
 const canonical = new URL(Astro.url.pathname, SITE.url);
-const coverImage = await getImage({ src: deepSpace, width: 1200, format: 'jpg' });
+const coverImage = await getImage({ src: foldedTitanium, width: 1200, format: 'jpg' });
 const cover = new URL(coverImage.src, SITE.url);
 ---
 <!doctype html>
-<html lang="zh-CN" data-theme="dark" data-palette="aurora" data-motion="running">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -33,6 +33,7 @@ const cover = new URL(coverImage.src, SITE.url);
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href="/fonts/noto-serif-sc-journal.ttf" as="font" type="font/ttf" crossorigin />
     <link rel="alternate" type="application/rss+xml" title={`${SITE.name} 的博客`} href="/rss.xml" />
     <meta property="og:type" content={type} />
     <meta property="og:title" content={pageTitle} />
@@ -41,27 +42,14 @@ const cover = new URL(coverImage.src, SITE.url);
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:locale" content="zh_CN" />
     <meta property="og:image" content={cover} />
-    <meta property="og:image:alt" content="星光之下的未来光场" />
+    <meta property="og:image:alt" content="冷光下的折叠钛金属雕塑" />
     <meta name="twitter:card" content="summary_large_image" />
     {publishedAt && <meta property="article:published_time" content={publishedAt.toISOString()} />}
     {updatedAt && <meta property="article:modified_time" content={updatedAt.toISOString()} />}
-    <script is:inline>
-      (() => {
-        const root = document.documentElement;
-        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        let palette = 'aurora', paused = false;
-        try {
-          palette = localStorage.getItem('blog-palette') === 'ember' ? 'ember' : 'aurora';
-          paused = localStorage.getItem('blog-motion') === 'paused';
-        } catch {}
-        root.dataset.palette = palette;
-        root.dataset.motion = reduced || paused ? 'paused' : 'running';
-      })();
-    </script>
   </head>
   <body>
     <a class="skip-link" href="#main">跳到正文</a>
-    <div class="reading-progress" aria-hidden="true"></div>
+    {type === 'article' && <div class="reading-progress" aria-hidden="true"></div>}
     <Header />
     <main id="main" tabindex="-1"><slot /></main>
     <Footer />

@@ -4,7 +4,7 @@ import { formatDate, postUrl, tagUrl, readingMinutes, type Post } from '../lib/p
 interface Props { post: Post; heading?: 'h2' | 'h3' }
 const { post, heading: Heading = 'h3' } = Astro.props;
 ---
-<article class="post-row" data-reveal>
+<article class="post-row">
   <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>
   <div class="post-summary">
     <Heading><a class="post-title" href={postUrl(post)}>{post.data.title}</a></Heading>

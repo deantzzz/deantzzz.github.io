@@ -3,6 +3,6 @@ import { SITE } from '../config';
 const year = new Intl.DateTimeFormat('en', { year: 'numeric', timeZone: 'Asia/Shanghai' }).format(new Date());
 ---
 <footer class="site-footer content">
-  <a class="wordmark" href="/" aria-label={`${SITE.name} 首页`}><span aria-hidden="true">/</span> {SITE.name}</a>
-  <div class="footer-links"><nav aria-label="页脚导航"><a href="/rss.xml">RSS</a><a href={SITE.github}>GitHub</a></nav><span class="copyright">© {year} {SITE.name}</span></div>
+  <span class="copyright">© {year} {SITE.name}</span>
+  <nav aria-label="页脚导航"><a href="/rss.xml">RSS</a><a href={SITE.github}>GitHub</a></nav>
 </footer>
